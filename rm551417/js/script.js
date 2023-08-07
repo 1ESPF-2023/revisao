@@ -18,3 +18,16 @@ console.log("\n");
 nomesAlunosArray.forEach((aluno)=>{
     console.log(`${aluno}`);
 });
+
+//Recuperando a div lista-nomes e criando alguns filhos nela.
+const divListaNomes = document.querySelector("#lista-nomes");
+
+//Criar os elementos filhos da div que são "p".
+
+//Adicionar texto ao novo elemento p.
+nomesAlunosArray.forEach((aluno)=>{
+    let p = document.createElement("p");
+    p.innerText = aluno; //ou "p.textContent = aluno;".
+    p.setAttribute("class","nomes");
+    divListaNomes.appendChild(p);
+});
