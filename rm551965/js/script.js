@@ -28,4 +28,20 @@ nomesAlunosArray.forEach((aluno) =>  {
     console.log(`${aluno} ` );  
 });
 
-//
+//Recuperando a div lista-nomes e criando alguns filhos nela.
+const divListaNomes = document.querySelector("#lista-nome");
+
+//Criar os elementos filhos da div que são 'p';
+
+nomesAlunosArray.forEach((aluno)=>{
+    let p = document.createElement("p");
+    p.innerText = aluno;
+
+    p.setAttribute("class","nomes");
+
+    divListaNomes.appendChild(p);
+});
+
+
+
+
