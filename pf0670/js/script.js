@@ -33,15 +33,32 @@ const divListaNomes = document.querySelector("#lista-nome");
 
 //Criar os elementos filhos da div que são 'p';
 
-nomesAlunosArray.forEach((aluno)=>{
+// nomesAlunosArray.forEach((aluno)=>{
+//     let p = document.createElement("p");
+//     p.innerText = aluno;
+
+//     p.setAttribute("class","nomes");
+    
+//     divListaNomes.appendChild(p);
+// });
+
+
+let novoArrayComIndicesPares = nomesAlunosArray.map((aluno,indice)=>{
     let p = document.createElement("p");
-    p.innerText = aluno;
+    p.innerText = (indice+1)+" - "+aluno;
 
     p.setAttribute("class","nomes");
     
     divListaNomes.appendChild(p);
+
+    if((indice+1) %2 == 0){
+        return aluno;
+    }
+    
+
+}).filter(aluno =>{
+    return aluno!= undefined
 });
 
-
-
+console.log(novoArrayComIndicesPares );
 
