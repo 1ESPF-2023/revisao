@@ -1,3 +1,5 @@
+
+
 //Criar uma lista de nomes de alunos em um array
 let nomesAlunosArray = ["Pedro","Luis","Carlos","Maria","Joice","Otávio","Antônio","Jefferson","Rony"];
 //Imprimindo o Array de nomes
@@ -26,12 +28,8 @@ nomesAlunosArray.forEach((aluno) =>  {
     console.log(`${aluno} ` );  
 });
 
-//
-
-
 //Recuperando a div lista-nomes e criando alguns filhos nela.
-const divListaNomes = document.querySelector("#lista-nomes");
-
+const divListaNomes = document.querySelector("#lista-nome");
 
 //Criar os elementos filhos da div que são 'p';
 
@@ -43,6 +41,8 @@ nomesAlunosArray.forEach((aluno)=>{
     
     divListaNomes.appendChild(p);
 });
+
+
 
 
 
