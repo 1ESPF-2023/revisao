@@ -24,7 +24,7 @@ nomesAlunosArray.forEach((aluno) => {
 const divListaNomes = document.querySelector("#lista-nome");
 
 
-nomesAlunosArray.forEach((aluno) => {
+nomesAlunosArray.forEach((aluno) => {  //para cada elemento do "nomesAlunosArray" ele jgoa para o parametro "aluno"
     //Criar os elementos filhos da div que são 'p'
     //cria vários elementos no html 'p'
     let p = document.createElement("p");
@@ -37,3 +37,21 @@ nomesAlunosArray.forEach((aluno) => {
 })
 
 
+let novoArrayComIndicesPares = nomesAlunosArray.map((aluno,indice)=>{
+    let p = document.createElement("p");
+    p.innerText = (indice+1)+" - "+aluno;
+
+    p.setAttribute("class","nomes");
+    
+    divListaNomes.appendChild(p);
+
+    if((indice+1) %2 == 0){
+        return aluno;
+    }
+    
+
+}).filter(aluno =>{
+    return aluno!= undefined
+})
+
+console.log(novoArrayComIndicesPares );
