@@ -9,6 +9,13 @@
 
 let listaTarefasArray = [];
 
+function Tarefa(descricao, autor, departamento, importancia) {
+    this.descricao = descricao;
+    this.autor = autor;
+    this.departamento = departamento;
+    this.importancia = importancia;
+}
+
 //Recuperando o botão com querySelector
 const botaoAddTarefa = document.querySelector("#btnAddTarefa");
 
@@ -17,9 +24,20 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     
     evento.preventDefault();
 
-    const inputTarefa = document.querySelector("#idTarefa");
+    const inputDescricao = document.querySelector("#idTarefa");
+    const inputAutor = document.querySelector("#idAutor");
+    const inputDepartamento = document.querySelector("#idDepartamento");
+    const inputImportancia = document.querySelector("#idImportância");
+
+    const descricaoTarefa = inputDescricao.value;
+    const autorTarefa = inputAutor.value;
+    const departamentoTarefa = inputDepartamento.value;
+    const importanciaTarefa = parseInt(inputImportancia.value);
+
+    const novaTarefa = new Tarefa(descricaoTarefa, autorTarefa, departamentoTarefa, importanciaTarefa)
+
     
-    listaTarefasArray.push(inputTarefa.value);
+    listaTarefasArray.push(novaTarefa);
     
     let li = document.createElement("li");
 
