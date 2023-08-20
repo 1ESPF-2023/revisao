@@ -27,7 +27,7 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     const inputDescricao = document.querySelector("#idTarefa");
     const inputAutor = document.querySelector("#idAutor");
     const inputDepartamento = document.querySelector("#idDepartamento");
-    const inputImportancia = document.querySelector("#idImportância");
+    const inputImportancia = document.querySelector("#idImportancia");
 
     const descricaoTarefa = inputDescricao.value;
     const autorTarefa = inputAutor.value;
@@ -42,7 +42,7 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     let li = document.createElement("li");
 
     // li.innerHTML = inputTarefa.value + "<button> x </button>";
-    li.textContent = inputTarefa.value;
+    li.textContent = descricaoTarefa;
     
     let botaoExcluir = document.createElement("button");
 
@@ -76,7 +76,7 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     });
 
     console.log(listaTarefasArray);
-    inputTarefa.value = "";
+    inputDescricao.value = "";
 
 })
 
