@@ -13,3 +13,9 @@ console.log(salariosAjustados);
 
 const salariosSuperiores2500 = salariosAjustados.filter(salario => salario > 2500)
 console.log(salariosSuperiores2500);
+
+const somaSalarios = salariosSuperiores2500.reduce((acumulador, elemento) => {
+    return acumulador + elemento;
+  }, 0);
+  
+console.log(somaSalarios);
