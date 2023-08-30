@@ -9,12 +9,8 @@
 
 let listaTarefasArray = [];
 
-function Tarefa(descricao, autor, departamento, importancia) {
-    this.descricao = descricao;
-    this.autor = autor;
-    this.departamento = departamento;
-    this.importancia = importancia;
-}
+let listaTarefasImportanciaArray = [];
+
 
 //Recuperando o botão com querySelector
 const botaoAddTarefa = document.querySelector("#btnAddTarefa");
@@ -34,15 +30,13 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     const departamentoTarefa = inputDepartamento.value;
     const importanciaTarefa = parseInt(inputImportancia.value);
 
-    const novaTarefa = new Tarefa(descricaoTarefa, autorTarefa, departamentoTarefa, importanciaTarefa)
-
-    
-    listaTarefasArray.push(novaTarefa);
+    listaTarefasArray.push(inputDescricao.value);
+    listaTarefasImportanciaArray.push(inputImportancia.value);
     
     let li = document.createElement("li");
 
     // li.innerHTML = inputTarefa.value + "<button> x </button>";
-    li.textContent = descricaoTarefa;
+    li.textContent = (`${inputDescricao.value} - ${inputAutor.value} - ${inputDepartamento.value} - ${inputImportancia.value}`) ;
     
     let botaoExcluir = document.createElement("button");
 
@@ -76,9 +70,13 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     });
 
     console.log(listaTarefasArray);
+    console.log(listaTarefasImportanciaArray);
     inputDescricao.value = "";
-
+    inputAutor.value = "";
+    inputDepartamento.value = "";
+    inputImportancia.value = 5;
 })
 
 
 
+// FAZER LISTA IMPORTÂNCIA RECEBER INT
