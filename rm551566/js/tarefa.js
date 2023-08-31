@@ -25,13 +25,18 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     const inputDepartamento = document.querySelector("#idDepartamento");
     const inputImportancia = document.querySelector("#idImportancia");
 
-    const descricaoTarefa = inputDescricao.value;
-    const autorTarefa = inputAutor.value;
-    const departamentoTarefa = inputDepartamento.value;
-    const importanciaTarefa = parseInt(inputImportancia.value);
-
     listaTarefasArray.push(inputDescricao.value);
-    listaTarefasImportanciaArray.push(inputImportancia.value);
+    listaTarefasImportanciaArray.push(parseInt(inputImportancia.value));
+
+// Combina as listas e ordena com base na lista de importância
+const tarefasOrdenadas = listaTarefasArray.slice().sort((a, b) => {
+    const indiceA = listaTarefasArray.indexOf(a);
+    const indiceB = listaTarefasArray.indexOf(b);
+    return listaTarefasImportanciaArray[indiceB] - listaTarefasImportanciaArray[indiceA];
+  });
+  
+  // Imprime a lista de tarefas ordenada por importância
+  console.log(tarefasOrdenadas);
     
     let li = document.createElement("li");
 
