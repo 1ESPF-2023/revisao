@@ -1,0 +1,20 @@
+/*
+/ * Estilos gerais da tabela * /
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+/ * Classe para ocultar colunas * /
+.hidden {
+    display: none;
+}*/

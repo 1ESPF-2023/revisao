@@ -124,6 +124,8 @@ botaoOrdenarPorImportancia.addEventListener("click", () => {
     console.log(`Linha: ${linhas}`)
 });
 
+
+
     console.log(listaTarefasArray);
     console.log(listaTarefasImportanciaArray);
     // Limpa os campos de entrada
