@@ -20,13 +20,13 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     
     evento.preventDefault();
 
-    const inputDescricao = document.querySelector("#idTarefa");
-    const inputAutor = document.querySelector("#idAutor");
-    const inputDepartamento = document.querySelector("#idDepartamento");
-    const inputImportancia = document.querySelector("#idImportancia");
+    const inputDescricao = document.querySelector("#idTarefa").value;
+    const inputAutor = document.querySelector("#idAutor").value;
+    const inputDepartamento = document.querySelector("#idDepartamento").value;
+    const inputImportancia = document.querySelector("#idImportancia").value;
 
-    listaTarefasArray.push(inputDescricao.value);
-    listaTarefasImportanciaArray.push(parseInt(inputImportancia.value));
+    listaTarefasArray.push(inputDescricao);
+    listaTarefasImportanciaArray.push(parseInt(inputImportancia));
 
 // Combina as listas e ordena com base na lista de importância
 const tarefasOrdenadas = listaTarefasArray.slice().sort((a, b) => {
@@ -38,50 +38,98 @@ const tarefasOrdenadas = listaTarefasArray.slice().sort((a, b) => {
   // Imprime a lista de tarefas ordenada por importância
   console.log(tarefasOrdenadas);
     
-    let li = document.createElement("li");
+  const novaLinha = document.createElement("tr");
 
-    // li.innerHTML = inputTarefa.value + "<button> x </button>";
-    li.textContent = (`${inputDescricao.value} - ${inputAutor.value} - ${inputDepartamento.value} - ${inputImportancia.value}`) ;
+  // Cria células <td> e define seu conteúdo
+  const tdDescricao = document.createElement("td");
+  tdDescricao.textContent = inputDescricao;
+
+  const tdAutor = document.createElement("td");
+  tdAutor.textContent = inputAutor;
+
+  const tdDepartamento = document.createElement("td");
+  tdDepartamento.textContent = inputDepartamento;
+
+  const tdImportancia = document.createElement("td");
+  tdImportancia.textContent = inputImportancia;
+
+  // Adiciona as células à nova linha
+  novaLinha.appendChild(tdDescricao);
+  novaLinha.appendChild(tdAutor);
+  novaLinha.appendChild(tdDepartamento);
+  novaLinha.appendChild(tdImportancia);
+
+  // Adiciona a nova linha ao corpo da tabela
+  const listaTarefas = document.querySelector("#lista-tarefas");
+  listaTarefas.appendChild(novaLinha);
     
-    let botaoExcluir = document.createElement("button");
+     // Cria o botão de exclusão
+     const botaoExcluir = document.createElement("button");
+     botaoExcluir.textContent = "x";
+ 
+     // Adiciona um evento de clique ao botão de exclusão
+     botaoExcluir.addEventListener("click", (evt) => {
+         // Obtém a linha pai do botão (tr)
+         const linhaExcluir = evt.target.closest("tr");
+ 
+         // Remove a linha da tabela
+         if (linhaExcluir) {
+             linhaExcluir.remove();
+ 
+             // Remova a correspondente entrada na lista de tarefas
+             const tarefaTextoLi = tdDescricao.textContent;
+             const indiceDaListaDeTarefas = listaTarefasArray.indexOf(tarefaTextoLi);
+             if (indiceDaListaDeTarefas !== -1) {
+                 listaTarefasArray.splice(indiceDaListaDeTarefas, 1);
+                 listaTarefasImportanciaArray.splice(indiceDaListaDeTarefas, 1);
+             }
+         }
+         console.log(listaTarefasArray)
+         console.log(listaTarefasImportanciaArray)
+     });
+ 
+     // Cria uma célula <td> para o botão de exclusão e adiciona-o à nova linha
+     const tdExcluir = document.createElement("td");
+     tdExcluir.appendChild(botaoExcluir);
+     novaLinha.appendChild(tdExcluir);
 
-    botaoExcluir.textContent = " x ";
 
-    li.appendChild(botaoExcluir);
+    // Recupere o botão "Ordenar por Importância" com querySelector
+const botaoOrdenarPorImportancia = document.querySelector("#btnOrdenarPorImportancia");
 
-    const listaTarefasUL = document.querySelector("#lista-tarefas");
+// Adicione um evento de clique ao botão para ordenar as linhas da tabela por importância
+botaoOrdenarPorImportancia.addEventListener("click", () => {
+    // Recupere o corpo da tabela (tbody)
+    const tbody = document.querySelector("#lista-tarefas");
 
-    listaTarefasUL.appendChild(li);
+    // Crie uma lista de objetos que representam as linhas da tabela
+    const linhas = Array.from(tbody.querySelectorAll("tr"));
 
-    botaoExcluir.addEventListener("click",(evt)=>{
-        // console.log(evt.target.parentNode.textContent.split(" ")[0]);
-
-        let conteudoLi = evt.target.parentNode.textContent;
-
-        //Splitando o texto da li com espaço vazio e retornando o resultado em um array.
-        let arrayComTextoDaLi = conteudoLi.split(" ");
-
-        //Pegando a posição zero do array de texto da li que possui a Tarefa.
-        let tarefaTextoLi = arrayComTextoDaLi[0];
-
-        //Localizando o índice da tarefa na lista de tarefa array com indexOf.
-        let indiceDaListaDeTarefas = listaTarefasArray.indexOf(tarefaTextoLi);
-
-        //Removendo a tarefa da lista de tarefas array utilizando o índice passado pelo indexOf, com o método splice.
-        listaTarefasArray.splice(indiceDaListaDeTarefas,1);
-        
-        evt.target.parentNode.remove();
-        console.log(listaTarefasArray);
+    // Ordene as linhas com base na coluna "Importância"
+    linhas.sort((a, b) => {
+        const importanciaA = parseInt(a.querySelector("td:nth-child(4)").textContent);
+        const importanciaB = parseInt(b.querySelector("td:nth-child(4)").textContent);
+        return importanciaB - importanciaA;
     });
+
+    // Remova todas as linhas da tabela
+    linhas.forEach((linha) => {
+        tbody.removeChild(linha);
+    });
+
+    // Adicione as linhas ordenadas de volta à tabela
+    linhas.forEach((linha) => {
+        tbody.appendChild(linha);
+    });
+    console.log(`Linha: ${linhas}`)
+});
 
     console.log(listaTarefasArray);
     console.log(listaTarefasImportanciaArray);
-    inputDescricao.value = "";
-    inputAutor.value = "";
-    inputDepartamento.value = "";
-    inputImportancia.value = 5;
+    // Limpa os campos de entrada
+document.querySelector("#idTarefa").value = "";
+document.querySelector("#idAutor").value = "";
+document.querySelector("#idDepartamento").value = "";
+document.querySelector("#idImportancia").value = 5; // Define o valor padrão
 })
 
-
-
-// FAZER LISTA IMPORTÂNCIA RECEBER INT

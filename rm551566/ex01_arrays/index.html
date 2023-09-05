@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coded by PF0670</title>
+    <title>Coded by RM551566</title>
     <script src="../js/tarefa.js" defer></script>
 </head>
 <body>
@@ -37,10 +37,22 @@
     </div>
 
     <div>
-        <ul id="lista-tarefas">
-            <li>Tarefa - Autor - Departamento - Importância</li>
-        </ul>
+        <button id="btnOrdenarPorImportancia">Ordenar por Importância</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Autor</th>
+                    <th>Departamento</th>
+                    <th>Importância</th>
+                </tr>
+            </thead>
+            <tbody id="lista-tarefas"> <!-- Adicionei um ID para o corpo da tabela -->
+                <!-- As linhas de dados serão adicionadas aqui -->
+            </tbody>
+        </table>
     </div>
+    
 
 </body>
 </html>
