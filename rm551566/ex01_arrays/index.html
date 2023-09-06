@@ -38,22 +38,25 @@
     </div>
 
     <div>
-        <button id="btnOrdenarPorImportancia">Ordenar por Importância</button>
+        
         <table>
             <thead>
+                <button id="btn-duracao">Adicionar duração</button>
+                <button id="btn-valor">Adicionar Valor</button>
                 <tr>
                     <th>Tarefa</th>
                     <th>Autor</th>
                     <th>Departamento</th>
                     <th>Importância</th>
                     <!-- Colunas adicionais -->
-                    <th class="duracao hidden">Duração</th>
-                    <th class="valor hidden">Valor</th>
+                    <th class="duracao">Duração</th>
+                    <th class="valor">Valor</th>
                 </tr>
             </thead>
             <tbody id="lista-tarefas"> <!-- Adicionei um ID para o corpo da tabela -->
                 <!-- As linhas de dados serão adicionadas aqui -->
             </tbody>
+            <button id="btnOrdenarPorImportancia">Ordenar por Importância</button>
         </table>
     </div>
     

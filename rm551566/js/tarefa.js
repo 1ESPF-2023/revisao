@@ -25,7 +25,18 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     const inputDepartamento = document.querySelector("#idDepartamento").value;
     const inputImportancia = document.querySelector("#idImportancia").value;
 
-    listaTarefasArray.push(inputDescricao);
+     // Crie um objeto de tarefa
+     const tarefa = {
+        descricao: inputDescricao,
+        autor: inputAutor,
+        departamento: inputDepartamento,
+        importancia: parseInt(inputImportancia),
+        // duracao: inputDuracao,
+        // valor: parseInt(inputValor)
+    };
+
+    // Adicione o objeto de tarefa ao array
+    listaTarefasArray.push(tarefa);
     listaTarefasImportanciaArray.push(parseInt(inputImportancia));
 
 // Combina as listas e ordena com base na lista de importância
@@ -42,16 +53,16 @@ const tarefasOrdenadas = listaTarefasArray.slice().sort((a, b) => {
 
   // Cria células <td> e define seu conteúdo
   const tdDescricao = document.createElement("td");
-  tdDescricao.textContent = inputDescricao;
+  tdDescricao.textContent = tarefa.descricao;
 
   const tdAutor = document.createElement("td");
-  tdAutor.textContent = inputAutor;
+  tdAutor.textContent = tarefa.autor;
 
   const tdDepartamento = document.createElement("td");
-  tdDepartamento.textContent = inputDepartamento;
+  tdDepartamento.textContent = tarefa.departamento;
 
   const tdImportancia = document.createElement("td");
-  tdImportancia.textContent = inputImportancia;
+  tdImportancia.textContent = tarefa.importancia;
 
   // Adiciona as células à nova linha
   novaLinha.appendChild(tdDescricao);
@@ -121,7 +132,7 @@ botaoOrdenarPorImportancia.addEventListener("click", () => {
     linhas.forEach((linha) => {
         tbody.appendChild(linha);
     });
-    console.log(`Linha: ${linhas}`)
+    console.log(`Linha: ${linhas.value}`)
 });
 
 

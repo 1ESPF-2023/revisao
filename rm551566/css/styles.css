@@ -14,7 +14,7 @@ th, td {
     text-align: left;
 }
 
-/ * Classe para ocultar colunas * /
-.hidden {
+/ * Classe para ocultar colunas * / */
+.duracao, .valor {
     display: none;
-}*/
+}
