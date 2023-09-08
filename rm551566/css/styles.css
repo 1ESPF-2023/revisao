@@ -15,6 +15,9 @@ th, td {
 }
 
 / * Classe para ocultar colunas * / */
-.duracao, .valor {
+.oculto {
     display: none;
+}
+.visivel {
+    display: block;
 }

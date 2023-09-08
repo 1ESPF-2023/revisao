@@ -11,6 +11,36 @@ let listaTarefasArray = [];
 
 let listaTarefasImportanciaArray = [];
 
+const botaoAddDuracao = document.querySelector("#btnAddDuracao");
+botaoAddDuracao.addEventListener("click", ()=>{
+    
+    const displayDuracao = document.querySelector("#divDuracao");
+    if (displayDuracao.classList.contains("oculto")){
+        displayDuracao.classList.remove("oculto");
+        displayDuracao.classList.add("visivel");
+        botaoAddDuracao.textContent = "Remover Duração"
+        }
+    else {
+        displayDuracao.classList.remove("visivel");
+        displayDuracao.classList.add("oculto");
+        botaoAddDuracao.textContent = "Adicionar Duração"
+        }
+})
+
+const botaoAddValor = document.querySelector("#btnAddValor");
+botaoAddValor.addEventListener("click", ()=>{
+    const displayValor = document.querySelector("#divValor");
+    if (displayValor.classList.contains("oculto")){
+        displayValor.classList.remove("oculto");
+        displayValor.classList.add("visivel");
+        botaoAddValor.textContent = "Remover Valor"
+        }
+    else {
+        displayValor.classList.remove("visivel");
+        displayValor.classList.add("oculto");
+        botaoAddValor.textContent = "Adicionar Valor"
+        }
+})
 
 //Recuperando o botão com querySelector
 const botaoAddTarefa = document.querySelector("#btnAddTarefa");
@@ -24,6 +54,8 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
     const inputAutor = document.querySelector("#idAutor").value;
     const inputDepartamento = document.querySelector("#idDepartamento").value;
     const inputImportancia = document.querySelector("#idImportancia").value;
+    const inputDuracao = document.querySelector("#idDuracao").value;
+    const inputValor = document.querySelector("#idValor").value;
 
      // Crie um objeto de tarefa
      const tarefa = {
@@ -31,9 +63,16 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
         autor: inputAutor,
         departamento: inputDepartamento,
         importancia: parseInt(inputImportancia),
-        // duracao: inputDuracao,
-        // valor: parseInt(inputValor)
+        duracao: inputDuracao,
+        valor: parseInt(inputValor)
     };
+    if (inputDuracao == null || inputDuracao == "") {
+        tarefa.duracao = "Nenhum"
+    }
+    if (inputValor == null || inputValor == "") {
+        tarefa.valor = "Nenhum"
+    }
+
 
     // Adicione o objeto de tarefa ao array
     listaTarefasArray.push(tarefa);
@@ -63,12 +102,20 @@ const tarefasOrdenadas = listaTarefasArray.slice().sort((a, b) => {
 
   const tdImportancia = document.createElement("td");
   tdImportancia.textContent = tarefa.importancia;
+  
+  const tdDuracao = document.createElement("td");
+  tdDuracao.textContent = tarefa.duracao;
+
+  const tdValor = document.createElement("td");
+  tdValor.textContent = tarefa.valor;
 
   // Adiciona as células à nova linha
   novaLinha.appendChild(tdDescricao);
   novaLinha.appendChild(tdAutor);
   novaLinha.appendChild(tdDepartamento);
   novaLinha.appendChild(tdImportancia);
+  novaLinha.appendChild(tdDuracao);
+  novaLinha.appendChild(tdValor);
 
   // Adiciona a nova linha ao corpo da tabela
   const listaTarefas = document.querySelector("#lista-tarefas");
@@ -135,14 +182,16 @@ botaoOrdenarPorImportancia.addEventListener("click", () => {
     console.log(`Linha: ${linhas.value}`)
 });
 
-
-
     console.log(listaTarefasArray);
     console.log(listaTarefasImportanciaArray);
-    // Limpa os campos de entrada
+// Limpa os campos de entrada
 document.querySelector("#idTarefa").value = "";
 document.querySelector("#idAutor").value = "";
 document.querySelector("#idDepartamento").value = "";
 document.querySelector("#idImportancia").value = 5; // Define o valor padrão
+document.querySelector("#idDuracao").value = "";
+document.querySelector("#idValor").value = 0;
 })
+
+
 
