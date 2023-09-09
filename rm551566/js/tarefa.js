@@ -9,6 +9,8 @@
 
 let listaTarefasArray = [];
 
+let listaDescricaoTarefasArray = []
+
 let listaTarefasImportanciaArray = [];
 
 const botaoAddDuracao = document.querySelector("#btnAddDuracao");
@@ -64,7 +66,7 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
         departamento: inputDepartamento,
         importancia: parseInt(inputImportancia),
         duracao: inputDuracao,
-        valor: parseInt(inputValor)
+        valor: parseFloat(inputValor)
     };
     if (inputDuracao == null || inputDuracao == "") {
         tarefa.duracao = "Nenhum"
@@ -76,18 +78,25 @@ botaoAddTarefa.addEventListener("click", (evento)=>{
 
     // Adicione o objeto de tarefa ao array
     listaTarefasArray.push(tarefa);
-    listaTarefasImportanciaArray.push(parseInt(inputImportancia));
+    listaDescricaoTarefasArray.push(tarefa.descricao);
+    listaTarefasImportanciaArray.push(parseInt(tarefa.importancia));
+
+    console.log(listaDescricaoTarefasArray)
 
 // Combina as listas e ordena com base na lista de importância
-const tarefasOrdenadas = listaTarefasArray.slice().sort((a, b) => {
-    const indiceA = listaTarefasArray.indexOf(a);
-    const indiceB = listaTarefasArray.indexOf(b);
+const tarefasOrdenadas = listaDescricaoTarefasArray.slice().sort((a, b) => {
+    const indiceA = listaDescricaoTarefasArray.indexOf(a);
+    const indiceB = listaDescricaoTarefasArray.indexOf(b);
     return listaTarefasImportanciaArray[indiceB] - listaTarefasImportanciaArray[indiceA];
   });
   
   // Imprime a lista de tarefas ordenada por importância
   console.log(tarefasOrdenadas);
-    
+    // tarefasOrdenadas = listaTarefasArray.map(function(elemento){
+    //     elemento.sort((a,b) => b.importancia - a.importancia);
+    //     return a.descricao
+    // })
+    // console.log(tarefasOrdenadas)
   const novaLinha = document.createElement("tr");
 
   // Cria células <td> e define seu conteúdo
@@ -137,9 +146,11 @@ const tarefasOrdenadas = listaTarefasArray.slice().sort((a, b) => {
              // Remova a correspondente entrada na lista de tarefas
              const tarefaTextoLi = tdDescricao.textContent;
              const indiceDaListaDeTarefas = listaTarefasArray.indexOf(tarefaTextoLi);
+            //  const indiceDaListaDeDescricao = listaDescricaoTarefasArray.indexOf(tarefaTextoLi);
              if (indiceDaListaDeTarefas !== -1) {
                  listaTarefasArray.splice(indiceDaListaDeTarefas, 1);
                  listaTarefasImportanciaArray.splice(indiceDaListaDeTarefas, 1);
+                //  listaDescricaoTarefasArray.splice(indiceDaListaDeDescricao, 1);
              }
          }
          console.log(listaTarefasArray)
@@ -157,29 +168,13 @@ const botaoOrdenarPorImportancia = document.querySelector("#btnOrdenarPorImporta
 
 // Adicione um evento de clique ao botão para ordenar as linhas da tabela por importância
 botaoOrdenarPorImportancia.addEventListener("click", () => {
-    // Recupere o corpo da tabela (tbody)
-    const tbody = document.querySelector("#lista-tarefas");
-
-    // Crie uma lista de objetos que representam as linhas da tabela
-    const linhas = Array.from(tbody.querySelectorAll("tr"));
-
-    // Ordene as linhas com base na coluna "Importância"
-    linhas.sort((a, b) => {
-        const importanciaA = parseInt(a.querySelector("td:nth-child(4)").textContent);
-        const importanciaB = parseInt(b.querySelector("td:nth-child(4)").textContent);
-        return importanciaB - importanciaA;
-    });
-
-    // Remova todas as linhas da tabela
-    linhas.forEach((linha) => {
-        tbody.removeChild(linha);
-    });
-
-    // Adicione as linhas ordenadas de volta à tabela
-    linhas.forEach((linha) => {
-        tbody.appendChild(linha);
-    });
-    console.log(`Linha: ${linhas.value}`)
+    const listaImportancia = document.querySelector(".listaImportancia");
+    listaImportancia.innerHTML = ""
+    tarefasOrdenadas.forEach(function(elemento){
+        let itemLista = document.createElement("li");
+        itemLista.textContent = elemento;
+        listaImportancia.appendChild(itemLista);
+    })
 });
 
     console.log(listaTarefasArray);
@@ -190,7 +185,7 @@ document.querySelector("#idAutor").value = "";
 document.querySelector("#idDepartamento").value = "";
 document.querySelector("#idImportancia").value = 5; // Define o valor padrão
 document.querySelector("#idDuracao").value = "";
-document.querySelector("#idValor").value = 0;
+document.querySelector("#idValor").value = "Nenhum";
 })
 
 
