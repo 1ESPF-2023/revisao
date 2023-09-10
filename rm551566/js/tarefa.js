@@ -1,11 +1,13 @@
-// Recuperando o botão com querySelector
+// Recuperando os botões com querySelector
 const botaoAddTarefa = document.querySelector("#btnAddTarefa");
-
-const listaTarefasArray = [];
-const listaDescricaoTarefasArray = [];
-const listaTarefasImportanciaArray = [];
-
 const botaoAddDuracao = document.querySelector("#btnAddDuracao");
+const botaoAddValor = document.querySelector("#btnAddValor");
+const botaoOrdenarPorImportancia = document.querySelector("#btnOrdenarPorImportancia");
+
+let listaTarefasArray = [];
+let listaDescricaoTarefasArray = [];
+let listaTarefasImportanciaArray = [];
+
 botaoAddDuracao.addEventListener("click", () => {
   const displayDuracao = document.querySelector("#divDuracao");
   if (displayDuracao.classList.contains("oculto")) {
@@ -19,7 +21,6 @@ botaoAddDuracao.addEventListener("click", () => {
   }
 });
 
-const botaoAddValor = document.querySelector("#btnAddValor");
 botaoAddValor.addEventListener("click", () => {
   const displayValor = document.querySelector("#divValor");
   if (displayValor.classList.contains("oculto")) {
@@ -33,7 +34,6 @@ botaoAddValor.addEventListener("click", () => {
   }
 });
 
-// Adiciona evento de clique no botão para adicionar tarefa ao array e renderizar a view.
 botaoAddTarefa.addEventListener("click", (evento) => {
   evento.preventDefault();
 
@@ -44,40 +44,28 @@ botaoAddTarefa.addEventListener("click", (evento) => {
   const inputDuracao = document.querySelector("#idDuracao").value;
   const inputValor = document.querySelector("#idValor").value;
 
-  // Crie um objeto de tarefa
   const tarefa = {
     descricao: inputDescricao,
     autor: inputAutor,
     departamento: inputDepartamento,
     importancia: parseInt(inputImportancia),
-    duracao: inputDuracao,
-    valor: parseFloat(inputValor),
+    duracao: inputDuracao || "Nenhum",
+    valor: parseFloat(inputValor) || "Nenhum",
   };
-  if (inputDuracao == null || inputDuracao == "") {
-    tarefa.duracao = "Nenhum";
-  }
-  if (inputValor == null || inputValor == "") {
-    tarefa.valor = "Nenhum";
-  }
 
-  // Adicione o objeto de tarefa ao array
   listaTarefasArray.push(tarefa);
-  listaDescricaoTarefasArray.push(tarefa.descricao);
-  listaTarefasImportanciaArray.push(parseInt(tarefa.importancia));
+  listaDescricaoTarefasArray = listaTarefasArray.map((tarefa) => tarefa.descricao);
+  listaTarefasImportanciaArray = listaTarefasArray.map((tarefa) => tarefa.importancia);
 
-  // Combina as listas e ordena com base na lista de importância
   const tarefasOrdenadas = listaDescricaoTarefasArray.slice().sort((a, b) => {
     const indiceA = listaDescricaoTarefasArray.indexOf(a);
     const indiceB = listaDescricaoTarefasArray.indexOf(b);
     return listaTarefasImportanciaArray[indiceB] - listaTarefasImportanciaArray[indiceA];
   });
 
-  // Imprime a lista de tarefas ordenada por importância
   console.log(tarefasOrdenadas);
 
   const novaLinha = document.createElement("tr");
-
-  // Cria células <td> e define seu conteúdo
   const tdDescricao = document.createElement("td");
   tdDescricao.textContent = tarefa.descricao;
 
@@ -96,7 +84,6 @@ botaoAddTarefa.addEventListener("click", (evento) => {
   const tdValor = document.createElement("td");
   tdValor.textContent = tarefa.valor;
 
-  // Adiciona as células à nova linha
   novaLinha.appendChild(tdDescricao);
   novaLinha.appendChild(tdAutor);
   novaLinha.appendChild(tdDepartamento);
@@ -104,61 +91,43 @@ botaoAddTarefa.addEventListener("click", (evento) => {
   novaLinha.appendChild(tdDuracao);
   novaLinha.appendChild(tdValor);
 
-  // Adiciona a nova linha ao corpo da tabela
   const listaTarefas = document.querySelector("#lista-tarefas");
   listaTarefas.appendChild(novaLinha);
 
-  // Cria o botão de exclusão
   const botaoExcluir = document.createElement("button");
   botaoExcluir.textContent = "x";
 
-  // Adiciona um evento de clique ao botão de exclusão
   botaoExcluir.addEventListener("click", (evt) => {
-    // Obtém a linha pai do botão (tr)
     const linhaExcluir = evt.target.closest("tr");
 
-    // Remove a linha da tabela
     if (linhaExcluir) {
       linhaExcluir.remove();
+      const tarefaTextoTd = tdDescricao.textContent;
 
-      // Remova a correspondente entrada na lista de tarefas
-      const tarefaTextoLi = tdDescricao.textContent;
-      const indiceDaListaDeTarefas = listaTarefasArray.findIndex((item) => item.descricao === tarefaTextoLi);
+      listaTarefasArray = listaTarefasArray.filter((tarefa) => tarefa.descricao !== tarefaTextoTd);
+      listaTarefasImportanciaArray = listaTarefasArray.map((tarefa) => tarefa.importancia);
 
-      if (indiceDaListaDeTarefas !== -1) {
-        listaTarefasArray.splice(indiceDaListaDeTarefas, 1);
-        listaTarefasImportanciaArray.splice(indiceDaListaDeTarefas, 1);
+      listaDescricaoTarefasArray = listaDescricaoTarefasArray.filter((descricao) => descricao !== tarefaTextoTd);
 
-        // Remova o item correspondente na lista tarefasOrdenadas
-        const indiceDaListaDeDescricao = listaDescricaoTarefasArray.findIndex((item) => item === tarefaTextoLi);
-        if (indiceDaListaDeDescricao !== -1) {
-          listaDescricaoTarefasArray.splice(indiceDaListaDeDescricao, 1);
-        }
-      }
-
-      // Remova o elemento <li> correspondente na lista de importância
       const listaImportancia = document.querySelector(".listaImportancia");
       const elementosLi = listaImportancia.querySelectorAll("li");
 
       elementosLi.forEach((elementoLi) => {
-        if (elementoLi.textContent === tarefaTextoLi) {
+        if (elementoLi.textContent === tarefaTextoTd) {
           elementoLi.remove();
         }
       });
     }
+
     console.log(listaTarefasArray);
     console.log(listaTarefasImportanciaArray);
+    console.log(listaDescricaoTarefasArray);
   });
 
-  // Cria uma célula <td> para o botão de exclusão e adiciona-o à nova linha
   const tdExcluir = document.createElement("td");
   tdExcluir.appendChild(botaoExcluir);
   novaLinha.appendChild(tdExcluir);
 
-  // Recupere o botão "Ordenar por Importância" com querySelector
-  const botaoOrdenarPorImportancia = document.querySelector("#btnOrdenarPorImportancia");
-
-  // Adicione um evento de clique ao botão para ordenar as linhas da tabela por importância
   botaoOrdenarPorImportancia.addEventListener("click", () => {
     const listaImportancia = document.querySelector(".listaImportancia");
     listaImportancia.innerHTML = "";
@@ -170,11 +139,10 @@ botaoAddTarefa.addEventListener("click", (evento) => {
     botaoOrdenarPorImportancia.textContent = "Atualizar lista de importância";
   });
 
-  // Limpa os campos de entrada
   document.querySelector("#idTarefa").value = "";
   document.querySelector("#idAutor").value = "";
   document.querySelector("#idDepartamento").value = "";
-  document.querySelector("#idImportancia").value = 5; // Define o valor padrão
+  document.querySelector("#idImportancia").value = 5;
   document.querySelector("#idDuracao").value = "";
   document.querySelector("#idValor").value = "Nenhum";
 });
