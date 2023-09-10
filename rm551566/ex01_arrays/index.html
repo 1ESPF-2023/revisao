@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coded by PF0670</title>
+    <title>Coded by RM551566</title>
     <script src="../js/tarefa.js" defer></script>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     
@@ -29,16 +30,55 @@
                     <label for="importancia">Importância</label>
                     <input type="number" name="importancia" id="idImportancia" placeholder="Importância da tarefa.">
                 </div>
+                <div class="oculto" id="divDuracao">
+                    <label for="duracao">Duração</label>
+                    <input type="text" name="duracao" id="idDuracao" placeholder="Duração da tarefa.">
+                </div>
+                <div class="oculto" id="divValor">
+                    <label for="valor">Valor</label>
+                    <input type="number" name="valor" id="idValor" placeholder="Valor da tarefa.">
+                </div>
+                <div>
+                    <button id="btnAddDuracao" type="button">Adicionar Duração</button>
+                </div>
+                <div>
+                    <button id="btnAddValor" type="button">Adicionar Valor</button>
+                </div>
                 <div>
                     <button type="submit" id="btnAddTarefa">Adicionar</button>
                 </div>
+                
             </fieldset>
         </form>
     </div>
 
-    <div>
-        <ul id="lista-tarefas"></ul>
+    <div class="tarefas">
+        <table>
+            <thead>
+               
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Autor</th>
+                    <th>Departamento</th>
+                    <th>Importância</th>
+                    <!-- Colunas adicionais -->
+                    <th class="tabela-duracao">Duração</th>
+                    <th class="tabela-valor">Valor</th>
+                </tr>
+            </thead>
+            <tbody id="lista-tarefas"> <!-- Adicionei um ID para o corpo da tabela -->
+                <!-- As linhas de dados serão adicionadas aqui -->
+            </tbody>
+            
+        </table>
+        <button id="btnOrdenarPorImportancia">Gerar lista de Importância</button>
     </div>
+    <div class="divImportancia">
+        <ol class="listaImportancia">
+
+        </ol>
+    </div>
+    
 
 </body>
 </html>

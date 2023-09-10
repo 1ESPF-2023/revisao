@@ -1,0 +1,7 @@
+/* Classe para ocultar colunas */
+.oculto {
+    display: none;
+}
+.visivel {
+    display: block;
+}
