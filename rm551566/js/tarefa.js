@@ -44,6 +44,14 @@ botaoAddTarefa.addEventListener("click", (evento) => {
   const inputDuracao = document.querySelector("#idDuracao").value;
   const inputValor = document.querySelector("#idValor").value;
 
+  // Verifique se já existe uma tarefa com a mesma descrição
+  const tarefaExistente = listaTarefasArray.find((tarefa) => tarefa.descricao === inputDescricao);
+
+  if (tarefaExistente) {
+    alert("Uma tarefa com a mesma descrição já existe. Por favor, insira uma descrição diferente.");
+    return; // Saia da função para evitar adicionar a tarefa duplicada
+  }
+
   const tarefa = {
     descricao: inputDescricao,
     autor: inputAutor,
