@@ -136,7 +136,6 @@ botaoAddTarefa.addEventListener("click", (evento) => {
       itemLista.textContent = elemento;
       listaImportancia.appendChild(itemLista);
     });
-    botaoOrdenarPorImportancia.textContent = "Atualizar lista de importância";
   });
 
   document.querySelector("#idTarefa").value = "";
