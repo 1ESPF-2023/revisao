@@ -5,6 +5,34 @@ const listaTarefasArray = [];
 const listaDescricaoTarefasArray = [];
 const listaTarefasImportanciaArray = [];
 
+const botaoAddDuracao = document.querySelector("#btnAddDuracao");
+botaoAddDuracao.addEventListener("click", () => {
+  const displayDuracao = document.querySelector("#divDuracao");
+  if (displayDuracao.classList.contains("oculto")) {
+    displayDuracao.classList.remove("oculto");
+    displayDuracao.classList.add("visivel");
+    botaoAddDuracao.textContent = "Remover Duração";
+  } else {
+    displayDuracao.classList.remove("visivel");
+    displayDuracao.classList.add("oculto");
+    botaoAddDuracao.textContent = "Adicionar Duração";
+  }
+});
+
+const botaoAddValor = document.querySelector("#btnAddValor");
+botaoAddValor.addEventListener("click", () => {
+  const displayValor = document.querySelector("#divValor");
+  if (displayValor.classList.contains("oculto")) {
+    displayValor.classList.remove("oculto");
+    displayValor.classList.add("visivel");
+    botaoAddValor.textContent = "Remover Valor";
+  } else {
+    displayValor.classList.remove("visivel");
+    displayValor.classList.add("oculto");
+    botaoAddValor.textContent = "Adicionar Valor";
+  }
+});
+
 // Adiciona evento de clique no botão para adicionar tarefa ao array e renderizar a view.
 botaoAddTarefa.addEventListener("click", (evento) => {
   evento.preventDefault();
